@@ -1,6 +1,7 @@
 {% set version = '0.8.0' %}
 
 {% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-ndjson
@@ -13,27 +14,31 @@ source:
   sha256: 22a037dbad0ae17e0ac442f45370fa7b4c4cc23f66ef1a949fe4e910dd5b7f53
 
 build:
-  number: 1
-  skip: True  # [win]
-
+  merge_build_host: True  # [win]
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ posix }}filesystem        # [win]
     - {{ posix }}make
-
+    - {{ posix }}sed               # [win]
+    - {{ posix }}coreutils         # [win]
+    - {{ posix }}zip               # [win]
   host:
     - r-base
     - r-rcpp
     - r-data.table
     - r-tibble
-
   run:
     - r-base
+    - {{ native }}gcc-libs         # [win]
     - r-rcpp
     - r-data.table
     - r-tibble
@@ -41,7 +46,8 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('ndjson')"
+    - $R -e "library('ndjson')"           # [not win]
+    - "\"%R%\" -e \"library('ndjson')\""  # [win]
 
 about:
   home: http://gitlab.com/hrbrmstr/ndjson

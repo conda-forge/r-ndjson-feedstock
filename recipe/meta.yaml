@@ -1,4 +1,4 @@
-{% set version = '0.8.0' %}
+{% set version = "0.9.0" %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -11,11 +11,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/ndjson_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ndjson/ndjson_{{ version }}.tar.gz
-  sha256: 22a037dbad0ae17e0ac442f45370fa7b4c4cc23f66ef1a949fe4e910dd5b7f53
+  sha256: 4d84f5d81a85db615392860ba71bb3cac15de9334faf0d09da6b5b95575c45a2
 
 build:
-  merge_build_host: True  # [win]
-  number: 4
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -52,16 +52,11 @@ test:
 about:
   home: http://gitlab.com/hrbrmstr/ndjson
   license: MIT
-  summary: Streaming 'JSON' ('ndjson') has one 'JSON' record per-line and many modern 'ndjson'
-    files contain large numbers of records. These constructs may not be columnar in
-    nature, but it is often useful to read in these files and "flatten" the structure
-    out to enable working with the data in an R 'data.frame'-like context. Functions
-    are provided that make it possible to read in plain 'ndjson' files or compressed
-    ('gz') 'ndjson' files and either validate the format of the records or create "flat"
-    'data.table' structures from them.
+  summary: Streaming 'JSON' ('ndjson') has one 'JSON' record per-line and many modern 'ndjson' files contain large numbers of records. These constructs may not be columnar in nature, but it is often useful to read in these files and "flatten" the structure out to enable working with the data in an R 'data.frame'-like context.
+    Functions are provided that make it possible to read in plain 'ndjson' files or compressed ('gz') 'ndjson' files and either validate the format of the records or create "flat" 'data.table' structures from them.
   license_family: MIT
   license_file:
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/MIT'
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/MIT
     - LICENSE
 
 extra:

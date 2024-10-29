@@ -1,7 +1,6 @@
 {% set version = "0.9.0" %}
 
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-ndjson
@@ -14,8 +13,7 @@ source:
   sha256: 4d84f5d81a85db615392860ba71bb3cac15de9334faf0d09da6b5b95575c45a2
 
 build:
-  merge_build_host: true  # [win]
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
@@ -23,7 +21,9 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('cxx') }}            # [not win]
     - {{ compiler('m2w64_cxx') }}      # [win]
     - {{ posix }}filesystem        # [win]
@@ -38,7 +38,6 @@ requirements:
     - r-tibble
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
     - r-rcpp
     - r-data.table
     - r-tibble

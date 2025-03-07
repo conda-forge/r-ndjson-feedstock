@@ -1,4 +1,4 @@
-{% set version = "0.9.0" %}
+{% set version = "0.9.1" %}
 
 {% set posix = 'm2-' if win else '' %}
 
@@ -10,10 +10,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/ndjson_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ndjson/ndjson_{{ version }}.tar.gz
-  sha256: 4d84f5d81a85db615392860ba71bb3cac15de9334faf0d09da6b5b95575c45a2
+  sha256: 4310be33b678920b2b0d26416198cff22f0d53be1d5d1df39202020b1c11ad50
 
 build:
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/

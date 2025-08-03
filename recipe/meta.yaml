@@ -1,5 +1,4 @@
 {% set version = "0.9.1" %}
-
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -17,6 +16,10 @@ build:
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
@@ -60,14 +63,13 @@ about:
 
 extra:
   recipe-maintainers:
+    - conda-forge/r
     - mxr-conda
     - ndmaxar
     - oblute
     - rluria14
-    - conda-forge/r
 
 # The original CRAN metadata for this package was:
-
 # Package: ndjson
 # Type: Package
 # Title: Wicked-Fast Streaming 'JSON' ('ndjson') Reader
@@ -91,7 +93,6 @@ extra:
 # Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>), Niels Lohmann [aut] (C++ json parser), Deepak Bandyopadhyay [aut] (C++ gzstream), Lutz Kettner [aut] (C++ gzstream), Neal Fultz [ctb] (Rcpp integration), Maarten Demeyer [ctb] (dtplyr cleanup)
 # Repository: CRAN
 # Date/Publication: 2019-11-13 15:20:02 UTC
-
 # See
 # https://docs.conda.io/projects/conda-build for
 # more information about meta.yaml

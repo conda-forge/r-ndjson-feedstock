@@ -39,12 +39,12 @@ requirements:
     - r-rcpp
     - r-data.table
     - r-tibble
+    - zlib
   run:
     - r-base
     - r-rcpp
     - r-data.table
     - r-tibble
-    - zlib
 
 test:
   commands:

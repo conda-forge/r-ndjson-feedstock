@@ -1,5 +1,4 @@
-{% set version = "0.9.0" %}
-
+{% set version = "0.9.1" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -10,13 +9,17 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/ndjson_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ndjson/ndjson_{{ version }}.tar.gz
-  sha256: 4d84f5d81a85db615392860ba71bb3cac15de9334faf0d09da6b5b95575c45a2
+  sha256: 4310be33b678920b2b0d26416198cff22f0d53be1d5d1df39202020b1c11ad50
 
 build:
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
@@ -36,12 +39,12 @@ requirements:
     - r-rcpp
     - r-data.table
     - r-tibble
+    - zlib
   run:
     - r-base
     - r-rcpp
     - r-data.table
     - r-tibble
-    - zlib
 
 test:
   commands:
@@ -60,14 +63,13 @@ about:
 
 extra:
   recipe-maintainers:
+    - conda-forge/r
     - mxr-conda
     - ndmaxar
     - oblute
     - rluria14
-    - conda-forge/r
 
 # The original CRAN metadata for this package was:
-
 # Package: ndjson
 # Type: Package
 # Title: Wicked-Fast Streaming 'JSON' ('ndjson') Reader
@@ -91,7 +93,6 @@ extra:
 # Author: Bob Rudis [aut, cre] (<https://orcid.org/0000-0001-5670-2640>), Niels Lohmann [aut] (C++ json parser), Deepak Bandyopadhyay [aut] (C++ gzstream), Lutz Kettner [aut] (C++ gzstream), Neal Fultz [ctb] (Rcpp integration), Maarten Demeyer [ctb] (dtplyr cleanup)
 # Repository: CRAN
 # Date/Publication: 2019-11-13 15:20:02 UTC
-
 # See
 # https://docs.conda.io/projects/conda-build for
 # more information about meta.yaml
